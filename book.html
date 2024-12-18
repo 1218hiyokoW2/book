@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>本の検索アプリ</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f9f9f9;
+        color: #333;
+      }
+
+      h1 {
+        text-align: center;
+        color: #444;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      input[type='text'] {
+        width: 100%;
+        max-width: 400px;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      table {
+        width: 100%;
+        max-width: 800px;
+        margin: 20px auto;
+        border-collapse: collapse;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: white;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #007bff;
+        color: white;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      a {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .error {
+        color: red;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      p {
+        text-align: center;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body v-cloak>
+    <h1>本の検索アプリ</h1>
+    <div class="center">
+      <label>検索キーワード:</label>
+      <input type="text" v-model="keyword" placeholder="本のタイトルや著者を入力" />
+
+      <button @click="getBookList">検索</button>
+    </div>
+
+    <div v-if="error" class="error">{{ error }}</div>
+
+    <table v-if="books && books.length">
+      <thead>
+        <tr>
+          <th>タイトル</th>
+          <th>著者</th>
+          <th>リンク</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="book in books">
+          <td>{{ book.Item.title }}</td>
+          <td>{{ book.Item.author }}</td>
+          <td>
+            <a :href="book.Item.itemUrl" target="_blank">詳細を見る</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script src="https://unpkg.com/petite-vue"></script>
+    <script src="book.js"></script>
+  </body>
+</html>
